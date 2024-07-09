@@ -6,7 +6,71 @@
     <title>Chalngr - Challenge Yourself, Challenge the World</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
-        
+
+        /*body {*/
+        /*    margin: 0;*/
+        /*    padding: 0;*/
+        /*    overflow: hidden;*/
+        /*    height: 100vh;*/
+        /*    background-color: #f0f0f0;*/
+        /*}*/
+        /*#banner {*/
+        /*    width: 100%;*/
+        /*    height: 80px;*/
+        /*    background-color: #4a4a4a;*/
+        /*    position: relative;*/
+        /*}*/
+        #basketball {
+            width: 60px;
+            height: 60px;
+            background-color: #f85a0c;
+            border-radius: 50%;
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            overflow: hidden;
+            cursor: pointer;
+            transition: top 0.5s ease-in-out, left 0.5s ease-in-out;
+        }
+        .basketball-line {
+            position: absolute;
+            background-color: #000;
+            opacity: 0.5;
+        }
+        .line-horizontal {
+            width: 100%;
+            height: 2px;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+        }
+        .line-vertical {
+            width: 2px;
+            height: 100%;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .line-curve {
+            width: 60px;
+            height: 60px;
+            position: absolute;
+            top: 0;
+            border: 2px solid black;
+            border-radius: 50%;
+            opacity: 0.5;
+            box-sizing: border-box;
+        }
+        .line-curve-left {
+            left: -30px;
+            border-right: none;
+        }
+        .line-curve-right {
+            right: -30px;
+            border-left: none;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
@@ -15,106 +79,135 @@
             padding: 0;
             background-color: #f4f4f4;
         }
-        
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
-        
+
         header {
-            background-color: #2527ff;
+            background: linear-gradient(135deg, #adaefb 0%, #1e20cc 100%);
             color: #fff;
             padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        
+
         .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        
+
         header h1 {
             margin: 0;
             font-size: 2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
-        
+
         nav ul {
             list-style-type: none;
             padding: 0;
             margin: 0;
             display: flex;
         }
-        
+
         nav ul li {
             margin-left: 20px;
         }
-        
+
         nav ul li a {
             color: #fff;
             text-decoration: none;
             font-weight: 500;
+            transition: color 0.3s ease;
         }
-        
+
+        nav ul li a:hover {
+            color: #f0f0f0;
+        }
+
         .hero {
-            background-color: #3a3a3a;
+            background:
+                linear-gradient(135deg, rgba(58, 58, 58, 0.9) 0%, rgba(58, 58, 58, 0.8) 100%),
+                url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
             color: #fff;
             text-align: center;
             padding: 4rem 0 0;
+            position: relative;
         }
-        
+
         .hero h2 {
             font-size: 2.5rem;
             margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
-        
+
         .hero p {
             font-size: 1.2rem;
             max-width: 600px;
             margin: 0 auto 2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
-        
+
         .features {
             padding: 4rem 0;
-            background-color: #fff;
+            background:
+                linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(240, 240, 240, 0.9) 100%),
+                url("data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.1'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
         }
-        
+
         .feature-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
         }
-        
+
         .feature {
             text-align: center;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        
+
+        .feature:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
         .feature img {
-            width: 100px;
-            height: 100px;
+            width: 200px;
+            height: 200px;
             margin-bottom: 1rem;
+            border-radius: 10px;
+            object-fit: cover;
         }
-        
+
         .waitlist-container {
-            background-color: #f4f4f4;
+            background:
+                linear-gradient(135deg, rgba(244, 244, 244, 0.9) 0%, rgba(230, 230, 230, 0.9) 100%),
+                url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%239C92AC' fill-opacity='0.1' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
             padding: 3rem 0;
             margin-top: 3rem;
         }
-        
+
         .waitlist-content {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
         }
-        
+
         .waitlist-text {
             font-size: 2rem;
             font-weight: bold;
             margin-bottom: 0.5rem;
             color: #333;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
-        
+
         .waitlist-subtext {
             font-size: 1.2rem;
             margin-bottom: 1rem;
@@ -122,13 +215,20 @@
             max-width: 600px;
             text-align: center;
         }
-        
+
         footer {
-            background-color: #333;
+            background: linear-gradient(135deg, #333 0%, #222 100%);
             color: #fff;
             text-align: center;
             padding: 1rem 0;
             margin-top: 2rem;
+        }
+
+        .newsletter-form-container {
+            background: rgba(230, 234, 243, 0.92);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
@@ -145,6 +245,14 @@
             </nav>
         </div>
     </header>
+
+    <div id="banner"></div>
+    <div id="basketball">
+        <div class="basketball-line line-horizontal"></div>
+        <div class="basketball-line line-vertical"></div>
+        <div class="line-curve line-curve-left"></div>
+        <div class="line-curve line-curve-right"></div>
+    </div>
 
     <main>
         <section id="home" class="hero">
@@ -179,17 +287,17 @@
                 <h2>Why Choose Chalngr?</h2>
                 <div class="feature-grid">
                     <div class="feature">
-                        <img src="/api/placeholder/100/100" alt="Global Challenges">
+                        <img src="imgs/global.webp" alt="Group of diverse people connected by lines, representing global challenges">
                         <h3>Global Challenges</h3>
                         <p>Compete with people from around the world in exciting real-life challenges.</p>
                     </div>
                     <div class="feature">
-                        <img src="/api/placeholder/100/100" alt="Bet on Yourself">
+                        <img src="imgs/trophy.webp" alt="Person standing confidently with a trophy, symbolizing betting on yourself">
                         <h3>Bet on Yourself</h3>
                         <p>Put your money where your mouth is and earn rewards for achieving your goals.</p>
                     </div>
                     <div class="feature">
-                        <img src="/api/placeholder/100/100" alt="Healthier Lifestyle">
+                        <img src="imgs/healthy.webp" alt="Collage of healthy lifestyle activities: running, cycling, eating healthy food">
                         <h3>Healthier Lifestyle</h3>
                         <p>Motivate yourself to make positive changes through fun and engaging challenges.</p>
                     </div>
@@ -227,6 +335,118 @@
                 .addEventListener("click", resetFormHandler);
             formContainer.classList.add("newsletter-handlers-added");
         }
+    </script>
+
+    <script>
+      const basketball = document.getElementById('basketball');
+      const banner = document.getElementById('banner');
+      const gravity = 9.81; // m/s^2
+      const fps = 60;
+      const pixelsPerMeter = 100;
+
+      let isAnimating = false;
+      let position = { x: 0, y: 0 };
+      let velocity = { x: 0, y: 0 };
+      let lastTimestamp = 0;
+      let bottomTimer = null;
+      let resetTimer = null;
+
+      function smoothResetBall() {
+        const bannerWidth = banner.offsetWidth;
+        const newX = Math.random() * (bannerWidth - 60);
+        const newY = 10;
+
+        basketball.style.transition = 'top 0.5s ease-in-out, left 0.5s ease-in-out';
+        basketball.style.left = `${newX}px`;
+        basketball.style.top = `${newY}px`;
+
+        setTimeout(() => {
+          basketball.style.transition = 'none';
+          position.x = newX;
+          position.y = newY;
+          velocity.x = (Math.random() - 0.5) * 4;
+          velocity.y = 0;
+        }, 500);
+
+        clearTimeout(bottomTimer);
+      }
+
+      function animateBall(timestamp) {
+        if (!lastTimestamp) lastTimestamp = timestamp;
+        const deltaTime = (timestamp - lastTimestamp) / 1000;
+        lastTimestamp = timestamp;
+
+        position.x += velocity.x * pixelsPerMeter * deltaTime;
+        position.y += velocity.y * pixelsPerMeter * deltaTime;
+        velocity.y += gravity * deltaTime;
+
+        const ballSize = 60;
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+
+        if (position.y + ballSize > windowHeight) {
+          position.y = windowHeight - ballSize;
+          velocity.y *= -0.8;
+
+          if (Math.abs(velocity.y) < 0.5) {
+            clearTimeout(bottomTimer);
+            bottomTimer = setTimeout(() => {
+              smoothResetBall();
+              requestAnimationFrame(animateBall);
+            }, 5000);
+          }
+        }
+
+        if (position.y < 0) {
+          position.y = 0;
+          velocity.y = Math.abs(velocity.y) * 0.8;
+        }
+
+        if (position.x < 0) {
+          position.x = 0;
+          velocity.x = Math.abs(velocity.x) * 0.9;
+        } else if (position.x + ballSize > windowWidth) {
+          position.x = windowWidth - ballSize;
+          velocity.x = -Math.abs(velocity.x) * 0.9;
+        }
+
+        basketball.style.left = `${position.x}px`;
+        basketball.style.top = `${position.y}px`;
+
+        if (isAnimating) {
+          requestAnimationFrame(animateBall);
+        }
+      }
+
+      function startAnimation() {
+        if (!isAnimating) {
+          isAnimating = true;
+          smoothResetBall();
+          lastTimestamp = 0;
+          requestAnimationFrame(animateBall);
+        }
+      }
+
+      function scheduleNextReset() {
+        clearTimeout(resetTimer);
+        resetTimer = setTimeout(() => {
+          smoothResetBall();
+          scheduleNextReset();
+        }, Math.random() * 10000 + 10000); // Reset every 10-20 seconds
+      }
+
+      function addBounce() {
+        velocity.y -= 5;
+        velocity.x += (Math.random() - 0.5) * 4;
+        if (!isAnimating) {
+          startAnimation();
+        }
+      }
+
+      basketball.addEventListener('mouseenter', addBounce);
+
+      startAnimation();
+      scheduleNextReset();
     </script>
 </body>
 </html>
