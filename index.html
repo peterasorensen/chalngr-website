@@ -7,30 +7,23 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
 
-        /*body {*/
-        /*    margin: 0;*/
-        /*    padding: 0;*/
-        /*    overflow: hidden;*/
-        /*    height: 100vh;*/
-        /*    background-color: #f0f0f0;*/
-        /*}*/
-        /*#banner {*/
-        /*    width: 100%;*/
-        /*    height: 80px;*/
-        /*    background-color: #4a4a4a;*/
-        /*    position: relative;*/
-        /*}*/
-        #basketball {
+        #basketball-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .basketball {
             width: 60px;
             height: 60px;
             background-color: #f85a0c;
             border-radius: 50%;
             position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translate(-50%, -50%);
             overflow: hidden;
-            cursor: pointer;
             transition: top 0.5s ease-in-out, left 0.5s ease-in-out;
         }
         .basketball-line {
@@ -78,6 +71,7 @@
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
+            position: relative;
         }
 
         .container {
@@ -91,6 +85,13 @@
             color: #fff;
             padding: 1rem 0;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 2;
+        }
+
+        main {
+            position: relative;
+            z-index: 1;
         }
 
         .header-content {
@@ -187,7 +188,7 @@
 
         .waitlist-container {
             background:
-                linear-gradient(135deg, rgba(244, 244, 244, 0.9) 0%, rgba(230, 230, 230, 0.9) 100%),
+                linear-gradient(135deg, rgba(244, 244, 244, 0.9) 0%, rgba(230, 230, 230, 0.6) 100%),
                 url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%239C92AC' fill-opacity='0.1' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
             padding: 3rem 0;
             margin-top: 3rem;
@@ -205,7 +206,6 @@
             font-weight: bold;
             margin-bottom: 0.5rem;
             color: #333;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
 
         .waitlist-subtext {
@@ -247,12 +247,7 @@
     </header>
 
     <div id="banner"></div>
-    <div id="basketball">
-        <div class="basketball-line line-horizontal"></div>
-        <div class="basketball-line line-vertical"></div>
-        <div class="line-curve line-curve-left"></div>
-        <div class="line-curve line-curve-right"></div>
-    </div>
+    <div id="basketball-container"></div>
 
     <main>
         <section id="home" class="hero">
@@ -338,115 +333,124 @@
     </script>
 
     <script>
-      const basketball = document.getElementById('basketball');
       const banner = document.getElementById('banner');
+      const basketballContainer = document.getElementById('basketball-container');
       const gravity = 9.81; // m/s^2
       const fps = 60;
       const pixelsPerMeter = 100;
+      const ballCount = 5; // Number of basketballs
 
-      let isAnimating = false;
-      let position = { x: 0, y: 0 };
-      let velocity = { x: 0, y: 0 };
-      let lastTimestamp = 0;
-      let bottomTimer = null;
-      let resetTimer = null;
+      let basketballs = [];
 
-      function smoothResetBall() {
-        const bannerWidth = banner.offsetWidth;
-        const newX = Math.random() * (bannerWidth - 60);
-        const newY = 10;
+      class Basketball {
+        constructor() {
+          this.element = this.createBasketballElement();
+          this.position = { x: 0, y: 0 };
+          this.velocity = { x: 0, y: 0 };
+          this.lastTimestamp = 0;
+          this.bottomTimer = null;
+          this.resetTimer = null;
+          this.smoothResetBall();
+        }
 
-        basketball.style.transition = 'top 0.5s ease-in-out, left 0.5s ease-in-out';
-        basketball.style.left = `${newX}px`;
-        basketball.style.top = `${newY}px`;
+        createBasketballElement() {
+          const ball = document.createElement('div');
+          ball.className = 'basketball';
+          ball.innerHTML = `
+                    <div class="basketball-line line-horizontal"></div>
+                    <div class="basketball-line line-vertical"></div>
+                    <div class="line-curve line-curve-left"></div>
+                    <div class="line-curve line-curve-right"></div>
+                `;
+          basketballContainer.appendChild(ball);
+          return ball;
+        }
 
-        setTimeout(() => {
-          basketball.style.transition = 'none';
-          position.x = newX;
-          position.y = newY;
-          velocity.x = (Math.random() - 0.5) * 4;
-          velocity.y = 0;
-        }, 500);
+        smoothResetBall() {
+          const containerWidth = basketballContainer.offsetWidth;
+          const newX = Math.random() * (containerWidth - 60);
+          const newY = banner.offsetHeight + 10; // Start just below the banner
 
-        clearTimeout(bottomTimer);
-      }
+          this.element.style.transition = 'top 0.5s ease-in-out, left 0.5s ease-in-out';
+          this.element.style.left = `${newX}px`;
+          this.element.style.top = `${newY}px`;
 
-      function animateBall(timestamp) {
-        if (!lastTimestamp) lastTimestamp = timestamp;
-        const deltaTime = (timestamp - lastTimestamp) / 1000;
-        lastTimestamp = timestamp;
+          setTimeout(() => {
+            this.element.style.transition = 'none';
+            this.position.x = newX;
+            this.position.y = newY;
+            this.velocity.x = (Math.random() - 0.5) * 4;
+            this.velocity.y = 0;
+          }, 500);
 
-        position.x += velocity.x * pixelsPerMeter * deltaTime;
-        position.y += velocity.y * pixelsPerMeter * deltaTime;
-        velocity.y += gravity * deltaTime;
+          clearTimeout(this.bottomTimer);
+        }
 
-        const ballSize = 60;
-        const windowWidth = window.innerWidth;
-        const windowHeight = window.innerHeight;
+        animate(timestamp) {
+          if (!this.lastTimestamp) this.lastTimestamp = timestamp;
+          const deltaTime = (timestamp - this.lastTimestamp) / 1000;
+          this.lastTimestamp = timestamp;
 
-        if (position.y + ballSize > windowHeight) {
-          position.y = windowHeight - ballSize;
-          velocity.y *= -0.8;
+          this.position.x += this.velocity.x * pixelsPerMeter * deltaTime;
+          this.position.y += this.velocity.y * pixelsPerMeter * deltaTime;
+          this.velocity.y += gravity * deltaTime;
 
-          if (Math.abs(velocity.y) < 0.5) {
-            clearTimeout(bottomTimer);
-            bottomTimer = setTimeout(() => {
-              smoothResetBall();
-              requestAnimationFrame(animateBall);
-            }, 5000);
+          const ballSize = 60;
+          const containerWidth = basketballContainer.offsetWidth;
+          const containerHeight = basketballContainer.offsetHeight;
+          const bannerHeight = banner.offsetHeight;
+
+          if (this.position.y + ballSize > containerHeight) {
+            this.position.y = containerHeight - ballSize;
+            this.velocity.y *= -0.8;
+
+            if (Math.abs(this.velocity.y) < 0.5) {
+              clearTimeout(this.bottomTimer);
+              this.bottomTimer = setTimeout(() => this.smoothResetBall(), 5000);
+            }
           }
+
+          if (this.position.y < bannerHeight) {
+            this.position.y = bannerHeight;
+            this.velocity.y = Math.abs(this.velocity.y) * 0.8;
+          }
+
+          if (this.position.x < 0) {
+            this.position.x = 0;
+            this.velocity.x = Math.abs(this.velocity.x) * 0.9;
+          } else if (this.position.x + ballSize > containerWidth) {
+            this.position.x = containerWidth - ballSize;
+            this.velocity.x = -Math.abs(this.velocity.x) * 0.9;
+          }
+
+          this.element.style.left = `${this.position.x}px`;
+          this.element.style.top = `${this.position.y}px`;
         }
 
-        if (position.y < 0) {
-          position.y = 0;
-          velocity.y = Math.abs(velocity.y) * 0.8;
-        }
-
-        if (position.x < 0) {
-          position.x = 0;
-          velocity.x = Math.abs(velocity.x) * 0.9;
-        } else if (position.x + ballSize > windowWidth) {
-          position.x = windowWidth - ballSize;
-          velocity.x = -Math.abs(velocity.x) * 0.9;
-        }
-
-        basketball.style.left = `${position.x}px`;
-        basketball.style.top = `${position.y}px`;
-
-        if (isAnimating) {
-          requestAnimationFrame(animateBall);
-        }
-      }
-
-      function startAnimation() {
-        if (!isAnimating) {
-          isAnimating = true;
-          smoothResetBall();
-          lastTimestamp = 0;
-          requestAnimationFrame(animateBall);
+        scheduleNextReset() {
+          clearTimeout(this.resetTimer);
+          this.resetTimer = setTimeout(() => {
+            this.smoothResetBall();
+            this.scheduleNextReset();
+          }, Math.random() * 10000 + 10000); // Reset every 10-20 seconds
         }
       }
 
-      function scheduleNextReset() {
-        clearTimeout(resetTimer);
-        resetTimer = setTimeout(() => {
-          smoothResetBall();
-          scheduleNextReset();
-        }, Math.random() * 10000 + 10000); // Reset every 10-20 seconds
-      }
-
-      function addBounce() {
-        velocity.y -= 5;
-        velocity.x += (Math.random() - 0.5) * 4;
-        if (!isAnimating) {
-          startAnimation();
+      function createBasketballs() {
+        for (let i = 0; i < ballCount; i++) {
+          const ball = new Basketball();
+          basketballs.push(ball);
+          ball.scheduleNextReset();
         }
       }
 
-      basketball.addEventListener('mouseenter', addBounce);
+      function animateAll(timestamp) {
+        basketballs.forEach(ball => ball.animate(timestamp));
+        requestAnimationFrame(animateAll);
+      }
 
-      startAnimation();
-      scheduleNextReset();
+      createBasketballs();
+      requestAnimationFrame(animateAll);
     </script>
 </body>
 </html>
