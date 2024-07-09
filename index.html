@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chalngr - Challenge Yourself, Challenge the World</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: #2527ff;
+            color: #fff;
+            padding: 1rem 0;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+        
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+        
+        nav ul li {
+            margin-left: 20px;
+        }
+        
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .hero {
+            background-color: #3a3a3a;
+            color: #fff;
+            text-align: center;
+            padding: 4rem 0 0;
+        }
+        
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+        
+        .features {
+            padding: 4rem 0;
+            background-color: #fff;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature {
+            text-align: center;
+        }
+        
+        .feature img {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 1rem;
+        }
+        
+        .waitlist-container {
+            background-color: #f4f4f4;
+            padding: 3rem 0;
+            margin-top: 3rem;
+        }
+        
+        .waitlist-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .waitlist-text {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+        
+        .waitlist-subtext {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: #333;
+            max-width: 600px;
+            text-align: center;
+        }
+        
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1rem 0;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <h1>Chalngr</h1>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#waitlist">Join Waitlist</a></li>
+                    <li><a href="#features">Features</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="container">
+                <h2>Challenge Yourself, Challenge the World</h2>
+                <p>Gamify your journey to a healthier lifestyle by competing in real-life challenges with people around the globe. Bet on yourself and win!</p>
+            </div>
+            <div id="waitlist" class="waitlist-container">
+                <div class="container waitlist-content">
+                    <h3 class="waitlist-text">Be the first to know!</h3>
+                    <p class="waitlist-subtext">Join our waitlist to get early access and exclusive updates about Chalngr!</p>
+                    <div class="newsletter-form-container">
+                        <form class="newsletter-form" action="https://app.loops.so/api/newsletter-form/clye377bj02qshlumhd1xwhfx" method="POST" style="display: flex; flex-direction: row; align-items: center; justify-content: center; width: 100%;">
+                            <input class="newsletter-form-input" name="newsletter-form-input" type="email" placeholder="you@example.com" required="" style="font-family: Inter, sans-serif; color: rgb(0, 0, 0); font-size: 14px; margin: 0px 10px 0px 0px; width: 100%; max-width: 300px; min-width: 100px; background: rgb(255, 255, 255); border: 1px solid rgb(209, 213, 219); box-sizing: border-box; box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px; border-radius: 6px; padding: 8px 12px;">
+                            <button type="submit" class="newsletter-form-button" style="background: rgb(37, 39, 255); font-size: 14px; color: rgb(255, 255, 255); font-family: Inter, sans-serif; display: flex; width: min-content; max-width: 300px; white-space: nowrap; height: 38px; align-items: center; justify-content: center; flex-direction: row; padding: 9px 17px; box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px; border-radius: 6px; text-align: center; font-style: normal; font-weight: 500; line-height: 20px; border: none; cursor: pointer;">Join Waitlist</button>
+                            <button type="button" class="newsletter-loading-button" style="background: rgb(37, 39, 255); font-size: 14px; color: rgb(255, 255, 255); font-family: Inter, sans-serif; display: none; width: min-content; max-width: 300px; white-space: nowrap; height: 38px; align-items: center; justify-content: center; flex-direction: row; padding: 9px 17px; box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px; border-radius: 6px; text-align: center; font-style: normal; font-weight: 500; line-height: 20px; border: none; cursor: pointer;">Please wait...</button>
+                        </form>
+                        <div class="newsletter-success" style="display: none; align-items: center; justify-content: center; width: 100%;">
+                            <p class="newsletter-success-message" style="font-family: Inter, sans-serif; color: rgb(255, 255, 255); font-size: 16px;">Thanks! We'll be in touch!</p>
+                        </div>
+                        <div class="newsletter-error" style="display: none; align-items: center; justify-content: center; width: 100%;">
+                            <p class="newsletter-error-message" style="font-family: Inter, sans-serif; color: rgb(185, 28, 28); font-size: 16px;">Oops! Something went wrong, please try again</p>
+                        </div>
+                        <button class='newsletter-back-button' type='button' style='color:#6b7280;font: 14px, Inter, sans-serif;margin:10px auto;text-align:center;display:none;background:transparent;border:none;cursor:pointer' onmouseout='this.style.textDecoration="none"' onmouseover='this.style.textDecoration="underline"'>&larr; Back</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <div class="container">
+                <h2>Why Choose Chalngr?</h2>
+                <div class="feature-grid">
+                    <div class="feature">
+                        <img src="/api/placeholder/100/100" alt="Global Challenges">
+                        <h3>Global Challenges</h3>
+                        <p>Compete with people from around the world in exciting real-life challenges.</p>
+                    </div>
+                    <div class="feature">
+                        <img src="/api/placeholder/100/100" alt="Bet on Yourself">
+                        <h3>Bet on Yourself</h3>
+                        <p>Put your money where your mouth is and earn rewards for achieving your goals.</p>
+                    </div>
+                    <div class="feature">
+                        <img src="/api/placeholder/100/100" alt="Healthier Lifestyle">
+                        <h3>Healthier Lifestyle</h3>
+                        <p>Motivate yourself to make positive changes through fun and engaging challenges.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Chalngr. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Your provided script goes here
+        function submitHandler(event) {
+            // ... (rest of the script)
+        }
+        function resetFormHandler(event) {
+            // ... (rest of the script)
+        }
+
+        var formContainers = document.getElementsByClassName("newsletter-form-container");
+
+        for (var i = 0; i < formContainers.length; i++) {
+            var formContainer = formContainers[i]
+            var handlersAdded = formContainer.classList.contains('newsletter-handlers-added')
+            if (handlersAdded) continue;
+            formContainer
+                .querySelector(".newsletter-form")
+                .addEventListener("submit", submitHandler);
+            formContainer
+                .querySelector(".newsletter-back-button")
+                .addEventListener("click", resetFormHandler);
+            formContainer.classList.add("newsletter-handlers-added");
+        }
+    </script>
+</body>
+</html>
